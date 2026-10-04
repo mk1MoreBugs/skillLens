@@ -15,3 +15,11 @@ def vacancy_list(request):
         template_name="vacancies/list.html",
         context=context,
     )
+def vacancy_detail(request, vacancy_id):
+    vacancy = Vacancy.objects.get(id = vacancy_id)
+    context = {"vacancy": vacancy}
+    return render(
+        request,
+        template_name="vacancies/vacancy_detail.html",
+        context=context,
+    )

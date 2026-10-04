@@ -1,0 +1,11 @@
+<h1>vacancy-detail подробное описание</h1>
+
+<h3>Имя: {{vacancy.name}}</h3>
+
+<h3>Описание {{vacancy.description}}</h3>
+
+<h3>Дата публикации: {{vacancy.date_published}}</h3>
+
+<a href="{% url 'vacancy-detail' vacancy.id %}">
+    {{ vacancy.name }}
+</a>
