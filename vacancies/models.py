@@ -34,7 +34,7 @@ class Vacancy(models.Model):
     )
     date_published = models.DateTimeField()
     name = models.CharField(max_length=500)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     URL = models.URLField()
 
     skills = models.ManyToManyField(
