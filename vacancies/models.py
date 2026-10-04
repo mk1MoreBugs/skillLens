@@ -36,6 +36,7 @@ class Vacancy(models.Model):
         Skill,
         related_name='vacancies',
         db_table='vacancies_skills_map',
+        blank=True,
     )
 
     class Meta:
