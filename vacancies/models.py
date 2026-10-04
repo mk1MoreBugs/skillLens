@@ -2,8 +2,10 @@ import uuid
 
 from django.db import models
 
-
 class Skill(models.Model):
+    def __str__(self):
+        return self.name
+
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -19,6 +21,9 @@ class Skill(models.Model):
 
 
 class Vacancy(models.Model):
+    def __str__(self):
+        return  f"{self.name} {self.date_published}"
+
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
