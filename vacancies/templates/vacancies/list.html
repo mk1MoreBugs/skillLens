@@ -1,10 +1,13 @@
 <h1>SkillLence — вакансии</h1>
 
-<p>Параграф здесь</p>
-
 {% for v in vacancies %}
-    <h2>{{v.name}}</h2>
-    <h2>{{v.description}}</h2>
-    <h2>{{v.date_published}}</h2>
+    <div>
+         <div>
+             <a href = "{% url 'vacancy-detail' v.id %}">{{v.name}}</a>
+             <span>{{v.date_published}}</span>
+         </div>
+        <p>{{v.description}}</p>
+    </div>
+
     <hr>
 {% endfor %}
