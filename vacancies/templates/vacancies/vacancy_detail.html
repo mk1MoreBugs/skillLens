@@ -1,21 +1,30 @@
-<h1>{{vacancy.name}}: подробное описание</h1>
-<h1><a href="{% url 'vacancy-list' %}">Назад</a></h1>
+{% extends "vacancies/base.html" %}
 
-<div>
-    <h3>Имя: {{vacancy.name}}</h3>
+{% block title %} {{vacancy.name}}: подробное описание {% endblock %}
 
-    <h3>Дата публикации: {{vacancy.date_published}}</h3>
-
-    <h3>Описание:</h3>
-
-    <p>
-       {{ vacancy.description}}
-    </p>
-
+{% block header_content %}
     <div>
-        <span>Ссылка:&nbsp;</span>
-        <a href="{{ vacancy.URL }}">
-            {{ vacancy.URL }}
-        </a>
+        <a href="{% url 'vacancy-list' %}">Назад</a>
+        <span>{{vacancy.name}}: подробное описание</span>
     </div>
-</div>
+
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Имя: {{vacancy.name}}</h3>
+        <h3>Дата публикации: {{vacancy.date_published}}</h3>
+        <h3>Описание:</h3>
+
+        <p>
+           {{ vacancy.description}}
+        </p>
+
+        <div>
+            <span>Ссылка:&nbsp;</span>
+            <a href="{{ vacancy.URL }}">
+                {{ vacancy.URL }}
+            </a>
+        </div>
+    </div>
+{% endblock %}

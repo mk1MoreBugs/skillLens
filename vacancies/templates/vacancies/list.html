@@ -1,13 +1,20 @@
-<h1>SkillLence — вакансии</h1>
+{% extends "vacancies/base.html" %}
 
-{% for v in vacancies %}
-    <div>
-         <div>
-             <a href = "{% url 'vacancy-detail' v.id %}">{{v.name}}</a>
-             <span>{{v.date_published}}</span>
-         </div>
-        <p>{{v.description}}</p>
-    </div>
+{% block title %} {{ block.super }} — Вакансии {% endblock %}
 
-    <hr>
-{% endfor %}
+{% block header_content %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>SkillLence — вакансии</h1>
+
+    {% for v in vacancies %}
+        {% include "vacancies/vacancy_card.html" with vacancy=v only %}
+        <hr>
+
+    {% empty %}
+        <p>Вакансий нет</p>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} SkillLence {% endblock %}</title>
+</head>
+<body>
+    <nav>
+        {% block header_content %}
+            <a href="{% url 'vacancy-about-app' %}">Главная</a>
+        {% endblock %}
+        {% if user.is_authenticated %}
+            <span>{{ user.username }}</span>
+            <a href="">Выйти</a> {# {% url 'logout' %} #}
+        {% else %}
+            <a href="">Войти</a> {# {% url 'login' %} #}
+        {% endif %}
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>© 2026</footer>
+
+</body>
+</html>
