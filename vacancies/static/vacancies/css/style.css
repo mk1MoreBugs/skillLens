@@ -1,0 +1,8 @@
+body {
+    background-color: #7d7f7d;  /* Пыльно-серый */
+}
+
+.card {
+    padding: 16px;
+    border: 4px groove black;
+}

@@ -1,8 +1,13 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <title>{% block title %} SkillLence {% endblock %}</title>
+    <link rel="stylesheet"
+          href="{% static 'vacancies/css/style.css' %}"
+    />
 </head>
 <body>
     <nav>
