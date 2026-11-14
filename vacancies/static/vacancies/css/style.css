@@ -1,8 +1,484 @@
-body {
-    background-color: #7d7f7d;  /* Пыльно-серый */
+/* ============================================================
+   SkillLence — Material Design 3 · Dark Theme
+   Inspired by ChatGPT UI patterns
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* ---------- Design Tokens (M3) ---------- */
+:root {
+  /* Primary — mint teal (ChatGPT-style accent) */
+  --md-primary:              #6fd4b5;
+  --md-on-primary:           #00382b;
+  --md-primary-container:    #005142;
+  --md-on-primary-container: #8cf1d1;
+
+  /* Secondary — sage */
+  --md-secondary:              #b3cdc0;
+  --md-on-secondary:           #1e352c;
+  --md-secondary-container:    #344b41;
+  --md-on-secondary-container: #cfe9dc;
+
+  /* Tertiary — lavender (meta accents) */
+  --md-tertiary:              #cbbfff;
+  --md-on-tertiary:           #302a53;
+  --md-tertiary-container:    #463f6a;
+  --md-on-tertiary-container: #e6deff;
+
+  /* Error */
+  --md-error:    #ffb4ab;
+  --md-on-error: #690005;
+
+  /* Surface system — 6 уровней */
+  --md-surface:                    #131615;
+  --md-surface-container-lowest:   #0b0e0d;
+  --md-surface-container-low:      #191c1a;
+  --md-surface-container:          #1f2321;
+  --md-surface-container-high:     #2a2e2c;
+  --md-surface-container-highest:  #353937;
+
+  --md-on-surface:         #e2e6e3;
+  --md-on-surface-variant: #bfc9c3;
+  --md-outline:            #8a938e;
+  --md-outline-variant:    #414a45;
+
+  /* Shape scale */
+  --shape-xs:   6px;
+  --shape-sm:  10px;
+  --shape-md:  14px;
+  --shape-lg:  18px;
+  --shape-xl:  28px;
+  --shape-full: 999px;
+
+  /* Elevation (M3 tonal + shadow) */
+  --shadow-1: 0 1px 2px rgba(0,0,0,.40), 0 1px 3px 1px rgba(0,0,0,.18);
+  --shadow-2: 0 2px 4px rgba(0,0,0,.40), 0 4px 10px 2px rgba(0,0,0,.18);
+  --shadow-3: 0 4px 10px rgba(0,0,0,.42), 0 8px 20px 4px rgba(0,0,0,.18);
+
+  /* Motion */
+  --ease:  cubic-bezier(0.2, 0, 0, 1);
+  --dur-s: 150ms;
+  --dur-m: 250ms;
+
+  /* Type & layout */
+  --font: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --content-w: 880px;
+
+  color-scheme: dark;
 }
 
+/* ---------- Reset / base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Selection */
+::selection {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+}
+
+/* Custom scrollbar (ChatGPT-like) */
+* { scrollbar-width: thin; scrollbar-color: var(--md-outline-variant) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: var(--md-outline-variant);
+  border-radius: var(--shape-full);
+  border: 2px solid var(--md-surface);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--md-outline); }
+
+/* ---------- Typography ---------- */
+h1, h2, h3, h4 {
+  color: var(--md-on-surface);
+  font-weight: 500;
+  letter-spacing: -0.15px;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+h1 { font-size: 28px; letter-spacing: -0.4px; margin-top: 8px; }
+h2 { font-size: 22px; }
+h3 { font-size: 17px; margin-top: 20px; }
+h4 { font-size: 15px; }
+
+p { margin: 0 0 12px; }
+
+a {
+  color: var(--md-primary);
+  text-decoration: none;
+  transition: color var(--dur-s) var(--ease),
+              opacity var(--dur-s) var(--ease);
+}
+a:hover { color: var(--md-on-primary-container); }
+
+:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+  border-radius: var(--shape-xs);
+}
+
+/* ---------- Navbar (sticky, blurred — ChatGPT style) ---------- */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px max(24px, calc((100vw - var(--content-w)) / 2 + 24px));
+  background: color-mix(in oklab, var(--md-surface) 82%, transparent);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+
+/* Nav links — M3 pill */
+nav > a,
+nav > div a {
+  color: var(--md-on-surface-variant);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: var(--shape-full);
+  transition: background-color var(--dur-s) var(--ease),
+              color var(--dur-s) var(--ease);
+}
+nav > a:hover,
+nav > div a:hover {
+  background: var(--md-surface-container-high);
+  color: var(--md-on-surface);
+  text-decoration: none;
+}
+
+/* Push auth/username block to the right */
+nav > *:nth-child(2) { margin-left: auto; }
+
+/* User chip */
+nav > span {
+  color: var(--md-on-surface-variant);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: var(--shape-full);
+  background: var(--md-surface-container);
+  border: 1px solid var(--md-outline-variant);
+  margin: 0 4px;
+}
+
+/* Div wrapper in detail-page navbar */
+nav > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+nav > div > span {
+  color: var(--md-on-surface-variant);
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Main layout ---------- */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* Hide raw <hr> between cards (cards already spaced) */
+main hr { display: none; }
+
+/* Empty state */
+main > p {
+  text-align: center;
+  padding: 48px 24px;
+  margin: 0;
+  color: var(--md-on-surface-variant);
+  background: var(--md-surface-container-low);
+  border: 1px dashed var(--md-outline-variant);
+  border-radius: var(--shape-lg);
+}
+
+/* ---------- Vacancy card ---------- */
 .card {
-    padding: 16px;
-    border: 4px groove black;
+  position: relative;
+  background: var(--md-surface-container);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--shape-lg);
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-1);
+  transition:
+    background-color var(--dur-m) var(--ease),
+    border-color     var(--dur-m) var(--ease),
+    box-shadow       var(--dur-m) var(--ease),
+    transform        var(--dur-m) var(--ease);
+}
+
+.card:hover {
+  background: var(--md-surface-container-high);
+  border-color: var(--md-outline);
+  box-shadow: var(--shadow-3);
+  transform: translateY(-2px);
+}
+
+/* Header row: title + date */
+.card > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Job title */
+.card > div:first-child > a {
+  color: var(--md-primary);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color var(--dur-s) var(--ease);
+}
+.card > div:first-child > a:hover {
+  color: var(--md-on-primary-container);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Date meta (tertiary accent) */
+.card > div:first-child > span {
+  color: var(--md-tertiary);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 3px 10px;
+  border-radius: var(--shape-full);
+  background: var(--md-tertiary-container);
+}
+
+/* Description */
+.card p {
+  margin: 0;
+  color: var(--md-on-surface-variant);
+  font-size: 14px;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- Detail page wrapper ---------- */
+main > div:not(.card) {
+  background: var(--md-surface-container-low);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--shape-lg);
+  padding: 28px 28px 24px;
+  box-shadow: var(--shadow-1);
+}
+
+/* Labels in detail page (h3 = «Имя:», «Дата публикации:», etc.) */
+main > div:not(.card) h3 {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--md-on-surface-variant);
+  margin: 20px 0 6px;
+}
+main > div:not(.card) h3:first-child {
+  margin-top: 0;
+  font-size: 22px;
+  text-transform: none;
+  letter-spacing: -0.3px;
+  color: var(--md-on-surface);
+}
+
+main > div:not(.card) > p {
+  color: var(--md-on-surface);
+  font-size: 15px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  padding: 14px 16px;
+  background: var(--md-surface-container);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--shape-md);
+  margin: 8px 0 20px;
+}
+
+/* Bottom link row */
+main > div:not(.card) > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: 16px;
+  border-top: 1px solid var(--md-outline-variant);
+  font-size: 14px;
+}
+main > div:not(.card) > div > span {
+  color: var(--md-on-surface-variant);
+}
+main > div:not(.card) > div a {
+  color: var(--md-primary);
+  font-weight: 500;
+  word-break: break-all;
+}
+main > div:not(.card) > div a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: auto;
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--md-on-surface-variant);
+  border-top: 1px solid var(--md-outline-variant);
+  background: var(--md-surface-container-lowest);
+}
+
+/* ---------- Motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .card:hover { transform: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  nav {
+    padding: 10px 16px;
+    gap: 2px;
+  }
+  nav > a,
+  nav > div a { padding: 7px 10px; font-size: 13px; }
+
+  main { padding: 20px 16px 48px; }
+
+  .card { padding: 16px 16px; border-radius: var(--shape-md); }
+
+  .card > div:first-child {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .card > div:first-child > a { font-size: 16px; }
+
+  main > div:not(.card) { padding: 20px 18px; }
+  main > div:not(.card) h3:first-child { font-size: 19px; }
+}
+
+/* ---------- Buttons (M3) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 18px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  border: none;
+  border-radius: var(--shape-full);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-s) var(--ease),
+    box-shadow       var(--dur-s) var(--ease),
+    color            var(--dur-s) var(--ease),
+    transform        var(--dur-s) var(--ease);
+}
+
+.btn:active { transform: scale(0.97); }
+
+/* Filled — главное действие */
+.btn--filled {
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+}
+.btn--filled:hover {
+  background: var(--md-on-primary-container);
+  color: var(--md-on-primary);
+  box-shadow: var(--shadow-2);
+  text-decoration: none;
+}
+
+/* Text — вторичное действие */
+.btn--text {
+  background: transparent;
+  color: var(--md-on-surface-variant);
+}
+.btn--text:hover {
+  background: var(--md-surface-container-high);
+  color: var(--md-on-surface);
+}
+
+/* Форма выхода — без «прыжков» в навбаре */
+.logout-form {
+  display: inline-flex;
+  margin: 0;
+}
+
+main > div dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 12px 24px;
+  margin: 0;
+  align-items: baseline;
+}
+
+main > div dt {
+  color: var(--md-on-surface-variant);
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+main > div dd {
+  margin: 0;
+  color: var(--md-on-surface);
+  font-size: 15px;
+}
+
+main > div dd.vacancy-description {
+  white-space: pre-wrap;
+  line-height: 1.65;
+  padding: 14px 16px;
+  background: var(--md-surface-container);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--shape-md);
+  grid-column: 1 / -1;  /* описание на всю ширину */
 }

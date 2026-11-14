@@ -12,19 +12,19 @@
 
 {% block content %}
     <div>
-        <h3>Имя: {{vacancy.name}}</h3>
-        <h3>Дата публикации: {{vacancy.date_published}}</h3>
-        <h3>Описание:</h3>
+        <h1>{{ vacancy.name }}</h1>
 
-        <p>
-           {{ vacancy.description}}
-        </p>
+        <dl>
+            <dt>Дата публикации</dt>
+            <dd>{{ vacancy.date_published }}</dd>
 
-        <div>
-            <span>Ссылка:&nbsp;</span>
-            <a href="{{ vacancy.URL }}">
-                {{ vacancy.URL }}
-            </a>
-        </div>
+            <dt>Описание</dt>
+            <dd class="vacancy-description">{{ vacancy.description }}</dd>
+
+            <dt>Ссылка</dt>
+            <dd>
+                <a href="{{ vacancy.URL }}">{{ vacancy.URL }}</a>
+            </dd>
+        </dl>
     </div>
 {% endblock %}
